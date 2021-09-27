@@ -8,9 +8,7 @@ type User = {
 
 type UserContextType = {
   user: User;
-  setUser: React.Dispatch<
-    React.SetStateAction<User>
-  >;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
 };
 
 const userContext = React.createContext<UserContextType | undefined>(

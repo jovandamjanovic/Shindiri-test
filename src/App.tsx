@@ -1,9 +1,14 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import { getCookie } from './util/cookie';
-import { UserProvider } from './userContext';
-import LoginForm from './LoginForm';
-import Dashboard from './Dashboard';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import { getCookie } from "./util/cookie";
+import { UserProvider } from "./userContext";
+import LoginForm from "./LoginForm";
+import Dashboard from "./Dashboard";
 
 function App() {
   return (
@@ -15,10 +20,19 @@ function App() {
               <Redirect to="/login"></Redirect>
             </Route>
             <Route path="/login" component={LoginForm} />
-            <Route path="/dashboard" render={props => {
-              let token = getCookie('token');
-              return token.length > 0 ? <Dashboard /> : <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
-            }} />
+            <Route
+              path="/dashboard"
+              render={(props) => {
+                let token = getCookie("token");
+                return token.length > 0 ? (
+                  <Dashboard />
+                ) : (
+                  <Redirect
+                    to={{ pathname: "/login", state: { from: props.location } }}
+                  />
+                );
+              }}
+            />
           </Switch>
         </Router>
       </div>

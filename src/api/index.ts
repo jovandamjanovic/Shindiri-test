@@ -45,7 +45,7 @@ const getUser = async (): Promise<User> => {
         username: "",
         firstName: "",
         lastName: "",
-      }
+      };
     });
 };
 
