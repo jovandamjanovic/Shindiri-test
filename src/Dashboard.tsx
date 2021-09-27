@@ -1,21 +1,23 @@
 import React, { useContext, useEffect } from 'react'
 import { Navbar, NavbarText, Nav, Button } from 'reactstrap';
 import { useHistory } from 'react-router';
-import userContext from './userContext';
+import UserContext from './userContext';
 import { getUser } from './api';
 import { deleteAllCookies } from './util/cookie';
 import { User } from "./userContext";
 
 
 const Dashboard = () => {
-    const userCtx = useContext(userContext);
+    const userContext = useContext(UserContext);
     const history = useHistory();
 
     useEffect(() => {
-        getUser().then((userFromAPI: User) => {
-            userCtx?.setUser(userFromAPI);
-        });
-    }, [userCtx]);
+        if (userContext?.user.firstName === "" || userContext?.user.lastName === "") {
+            getUser().then((userFromAPI: User) => {
+                userContext?.setUser(userFromAPI);
+            });
+        }
+    });
 
     const logout = () => {
         deleteAllCookies();
@@ -27,10 +29,10 @@ const Dashboard = () => {
             <Navbar color="dark" dark expand="md">
                 <Nav>
                     <NavbarText className="p-2">
-                        {userCtx?.user.firstName}
+                        {userContext?.user.firstName}
                     </NavbarText>
                     <NavbarText className="p-2">
-                        {userCtx?.user.lastName}
+                        {userContext?.user.lastName}
                     </NavbarText>
                 </Nav>
                 <Button onClick={logout} color="danger">Log Out</Button>
