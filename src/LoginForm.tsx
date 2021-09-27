@@ -5,6 +5,10 @@ import { Form, Input, Button, Row, Container, Alert } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import { login } from './api';
 
+interface ErrorObject {
+  message: string;
+}
+
 const LoginForm = () => {
   const history = useHistory();
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
@@ -17,7 +21,7 @@ const LoginForm = () => {
     onSubmit: (values, { setErrors }) => {
       login(values.username, values.password).then(() => {
         history.push('/dashboard');
-      }).catch(e => {
+      }).catch((e: ErrorObject) => {
         setErrors({ password: e.message })
       });
     }

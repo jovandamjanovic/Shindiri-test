@@ -1,23 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-type UserContextType = { 
-    user: { username: string; firstName: string; lastName: string; }; 
-    setUser: React.Dispatch<React.SetStateAction<{ username: string; firstName: string; lastName: string; }>>; 
-}
+type User = {
+  username: string;
+  firstName: string;
+  lastName: string;
+};
 
-const userContext = React.createContext<UserContextType | undefined>(undefined!);
+type UserContextType = {
+  user: User;
+  setUser: React.Dispatch<
+    React.SetStateAction<User>
+  >;
+};
 
-const UserProvider: React.FC = ({children}) => {
-    const [user, setUser] = useState({
-        username: '',
-        firstName: '',
-        lastName: '',
-    });
-    return <userContext.Provider value={{user, setUser}}>{children}</userContext.Provider>
-}
+const userContext = React.createContext<UserContextType | undefined>(
+  undefined!
+);
 
-export {
-    UserProvider
-}
+const UserProvider: React.FC = ({ children }) => {
+  const [user, setUser] = useState({
+    username: "",
+    firstName: "",
+    lastName: "",
+  });
+  return (
+    <userContext.Provider value={{ user, setUser }}>
+      {children}
+    </userContext.Provider>
+  );
+};
+
+export { UserProvider };
+
+export type { User };
 
 export default userContext;

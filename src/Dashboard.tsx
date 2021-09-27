@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import userContext from './userContext';
 import { getUser } from './api';
 import { deleteAllCookies } from './util/cookie';
+import { User } from "./userContext";
 
 
 const Dashboard = () => {
@@ -11,7 +12,7 @@ const Dashboard = () => {
     const history = useHistory();
 
     useEffect(() => {
-        getUser().then(userFromAPI => {
+        getUser().then((userFromAPI: User) => {
             userCtx?.setUser(userFromAPI);
         });
     }, [userCtx]);
